@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "elastic",
+    "django_celery_results",
 ]
 
 
@@ -175,4 +176,8 @@ SESSION_SAVE_EVERY_REQUEST = True  # 요청이 있을 때마다 세션을 저장
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-
+CELERY_BROKER_URL = "amqp://guest:guest@35.216.62.167:5672//"
+CELERY_RESULT_BACKEND = secrets['redis_password']
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'

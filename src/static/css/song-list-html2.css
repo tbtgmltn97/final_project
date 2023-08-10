@@ -80,7 +80,7 @@
 .pop-text-1 {
     color: var(--white, #ffffff);
     text-align: left;
-    font: 900 24px/30px "Noto Sans KR", sans-serif;
+    font: 700 24px/30px "Noto Sans KR", sans-serif;
     position: relative;
 }
 

@@ -10,6 +10,9 @@ import requests
 import json
 from .models import Recommend
 from rest_framework.decorators import api_view
+from .tasks import send_data_to_fastapi, store_input_data_in_redis
+from celery.result import AsyncResult
+
 
 # Create your views here.
 
@@ -42,15 +45,21 @@ def process(request):
 
         print(input_data_list)
 
-        fastapi_service_url = 'http://34.64.174.219:8001/process'
-        response = requests.post(fastapi_service_url, json={"input_data": input_data_list})
-        result = response.json()['result']
+        input_data_2 = [str(x['master_number']) for x in input_data_list]
+        print(input_data_2)
 
-        print(result)
+
+        store_input_data_in_redis(input_data_2)
+        task = send_data_to_fastapi(input_data_2)
+
+        print("!!!!!!!!!!!!!!!")
+        print(task['result'])
+
+        
 
         Recommend.objects.filter(list_number_id=list_number, user_id=user).delete()
         
-        for x in result:
+        for x in task['result']:
             recommend = Recommend(
                 title=x['title'],
                 artist=x['artist'],

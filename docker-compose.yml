@@ -28,24 +28,17 @@ services:
             - web
         networks:
             - custom_network
-    
+
     rabbitmq:
-        image: rabbitmq:3.7.14-management-alpine
-        container_name: rabbitmq_ctn
-        restart: "no"
-        volumes:
-          - ./config/rabbitmq/etc/:/etc/rabbitmq/
-          - ./config/rabbitmq/data/:/var/lib/rabbitmq/
-          - ./config/rabbitmq/logs/:/var/log/rabbitmq/
-        user: "1001:1002"
-        ports:
-          - "5672:5672"
-          - "15672:15672"
-        environment:
-          RABBITMQ_DEFAULT_USER: "admin"
-          RABBITMQ_DEFAULT_PASS: "AlsongDlsong"
-        networks:
-            - custom_network
+      image: 'rabbitmq:3-management'
+      container_name: rabbitmq_ctn
+      ports:
+        # The standard AMQP protocol port
+        - '5672:5672'
+        # HTTP management UI
+        - '15672:15672'
+      volumes:
+        - ./src:/src
 
 networks:
     custom_network:

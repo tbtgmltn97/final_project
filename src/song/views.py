@@ -66,8 +66,6 @@ class SearchView(APIView):
         folders = Myfolder.objects.filter(user_id=user_id)
         category = request.GET.get('category')
 
-        print(query)
-        print(category)
 
         if query:
             #return Response(status=status.HTTP_400_BAD_REQUEST, data={'message': 'search word param is missing'})
@@ -96,6 +94,7 @@ class SearchView(APIView):
                                 })
 
             data_list = docs['hits']
+            print({'data':data_list})
             Song = namedtuple("Song", ["title", "artist", "ky", "tj", "master_number"])
             results = [Song(x['_source']['title'], x['_source']['artist'], x['_source']['ky_song_num_id'], x['_source']['tj_song_num_id'], x['_source']['master_number']) for x in data_list['hits']]
         
