@@ -57,7 +57,7 @@
             </div>
         </div>
 
-        <div class="main-text">이런 곡을 불러보는 건 어떨까요?</div>
+	<div class="main-text">{{user.nickname}} 님은 이런 곡이 딱 어울려요!</div>
         {% for recommends in recommend %}
         <div class="recommend-song-box button-add-list" id="button_add_list" 
                 master_number="{{recommends.master_number_id}}">

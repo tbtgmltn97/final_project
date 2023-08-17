@@ -42,3 +42,6 @@ wordcloud==1.9.1.1
 PyJWT==2.7.0
 dj-rest-auth==4.0.1
 elasticsearch==7.8.1
+celery==5.3.1
+django-celery-results==2.5.1
+redis==4.6.0

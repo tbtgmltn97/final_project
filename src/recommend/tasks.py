@@ -12,7 +12,7 @@ with open('secrets.json') as f:
 
 @shared_task(bind=True)
 def store_input_data_in_redis(self, input_data):
-    redis_conn = redis.secrets['store_redis']
+    redis_conn = redis.Redis(host=secrets["redis_host"], port=secrets["redis_port"], db=secrets["redis_db"], password= secrets["redis_pw"])
     print(redis_conn)
     # redis_conn = celery_app.backend.client
     date = datetime.datetime.now()
